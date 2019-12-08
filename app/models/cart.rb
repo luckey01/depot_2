@@ -10,23 +10,23 @@ class Cart < ApplicationRecord
   has_many :line_items, dependent: :destroy
   
   def add_product(product)
+    
     current_item = LineItem.find_by(product_id: product.id, product_price: product.price)
     if current_item
-      
       current_item.quantity += 1
       
     else
       current_item = line_items.build(product_id: product.id)
-      binding.pry
-
       current_item.product_price = product.price
-      binding.pry
-    end     
+    end
+    current_item.tot_price = current_item.quantity * current_item.product_price 
+                
     current_item
+    
   end
   
   def total_price
-    line_items.to_a.sum { |item| item.total_price }
+    line_items.to_a.sum { |item| item.tot_price }
   end
   
 end
