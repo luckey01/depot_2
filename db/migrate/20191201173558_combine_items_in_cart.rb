@@ -13,15 +13,16 @@ class CombineItemsInCart < ActiveRecord::Migration[6.0]
     # single item
     Cart.all.each do |cart|
       # count the number of each product in the cart
-      sums = cart.line_items.group(:product_id).sum(:quantity)
+      sums = cart.line_items.group(:product_id, :product_price).sum(:quantity)
       #sums = cart.line_items.group(:product_id, :product_price).sum(:quantity)
-      sums.each do |product_id, quantity|
+      sums.each do |product_id, product_price, quantity|
         if quantity > 1
           # remove individual items
           cart.line_items.where(product_id: product_id).delete_all
 
           # replace with a single item
           item = cart.line_items.build(product_id: product_id)
+          item.product_price = product_price
           item.quantity = quantity
           #item.tot_price = item.quantity * item.product_price
           item.save!
@@ -39,6 +40,7 @@ class CombineItemsInCart < ActiveRecord::Migration[6.0]
           cart_id: line_item.cart_id,
           product_id: line_item.product_id,
           #tot_price: line_item.product_price
+          product_price: line_item.product_price
           quantity: 1
         )
       end
