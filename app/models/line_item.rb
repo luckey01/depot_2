@@ -12,8 +12,8 @@ class LineItem < ApplicationRecord
   after_initialize :set_product_price
   
   
-  def total_price
-    product.price * quantity
+  def tot_price
+    product_price * quantity
     #lineitem.product_price * quantity
   end
   
@@ -22,5 +22,7 @@ class LineItem < ApplicationRecord
       self.product_price ||= product.price
     end
   end
+  
+  
   
 end
