@@ -1,7 +1,7 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create]
-  before_action :set_line_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:create, :destroy_from_cart]
+  before_action :set_line_item, only: [:show, :edit, :update, :destroy, :destroy_from_cart]
 
   # GET /line_items
   # GET /line_items.json
@@ -59,7 +59,6 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
-    binding.pry
     @line_item.destroy
     respond_to do |format|
       format.html { redirect_to line_items_url, notice: 'Line item was successfully destroyed.' }
@@ -69,8 +68,6 @@ class LineItemsController < ApplicationController
   
   def destroy_from_cart
     @line_item.destroy
-    binding.pry
-    
     respond_to do |format|
       format.html { redirect_to cart_url, notice: 'Line item was successfully destroyed.' }
       format.json { head :no_content }
