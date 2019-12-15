@@ -7,7 +7,7 @@
   <table>
     <% @cart.line_items.each do |line_item| %>
       <tr>
-        <td class="quantity"><%= line_item.quantity %></td>
+        <td class="quantity"><%= 	.quantity %></td>
         <td><%= line_item.product.title %></td>
 				<td><%= number_to_currency(line_item.product_price) %></td>
         <td class="tot_price"><%= number_to_currency(line_item.tot_price) %></td>

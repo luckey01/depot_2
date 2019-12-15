@@ -17,7 +17,6 @@ class Cart < ApplicationRecord
       
     else
       current_item = line_items.build(product_id: product.id)
-      current_item.product_price = product.price
     end
     current_item.tot_price = current_item.quantity * current_item.product_price 
                 

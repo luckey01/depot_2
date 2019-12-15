@@ -9,9 +9,18 @@
 class LineItem < ApplicationRecord
   belongs_to :product
   belongs_to :cart
+  after_initialize :set_product_price
+  
   
   def total_price
     product.price * quantity
     #lineitem.product_price * quantity
   end
+  
+  def set_product_price
+    if product
+      self.product_price ||= product.price
+    end
+  end
+  
 end

@@ -4,17 +4,11 @@
 
 <h1>Your Pragmatic Catalog</h1>
 
-{%if <%= session[:counter]%> < 5 %}
+<% if session[:counter] > 5 %>
 	<p>Visit number <%= session[:counter]%></p>
-{%endif%}
+<% end %>
 
 
-<script>
-	if <%= session[:counter]%> > 5 {
-		<p>Visit number <%= session[:counter]%></p>	
-		document.write(blah blah)
-	}	
-</script>
 
 <ul class="catalog">
   <% cache @products do %>
